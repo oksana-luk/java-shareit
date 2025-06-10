@@ -1,16 +1,12 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Data
-public class ItemDto {
+public class UserDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
     private String name;
-    private String description;
-    private boolean available;
+    private String email;
 }
