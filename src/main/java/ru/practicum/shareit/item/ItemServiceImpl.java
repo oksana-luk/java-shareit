@@ -19,7 +19,6 @@ import java.util.*;
 public class ItemServiceImpl implements ItemService {
     private final ItemStorage itemStorage;
     private final UserService userService;
-    private static final Map<String, String> cash = new HashMap<>();
 
     @Override
     public ItemDto getItemById(long itemId) {
@@ -37,7 +36,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> getItemsByPattern(String pattern) {
-        if (pattern.isBlank()) {
+        if (pattern == null || pattern.isBlank()) {
             return List.of();
         } else {
             return itemStorage.findItemsByPattern(pattern).stream()
