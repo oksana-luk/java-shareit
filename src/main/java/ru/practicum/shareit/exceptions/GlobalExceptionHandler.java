@@ -42,9 +42,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleValidationExceptions(ValidationException e) {
+        return Map.of("Validation error", e.getMessage());
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public Map<String, String> handleUnacceptableUserException(UnacceptableUserException e) {
-        return Map.of("Unacceptable user", e.getMessage());
+    public Map<String, String> handleUnacceptableUserException(UnacceptableValueException e) {
+        return Map.of("Unacceptable value", e.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
