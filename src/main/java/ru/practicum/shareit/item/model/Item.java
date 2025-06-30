@@ -28,8 +28,6 @@ public class Item {
     private Booking lastBooking;
     @Transient
     private Booking nextBooking;
-    @ElementCollection
-    @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "item_id"))
 
     @Override
     public final boolean equals(Object o) {
