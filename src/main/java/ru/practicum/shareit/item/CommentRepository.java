@@ -17,4 +17,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "where comment.item.id = ?1 " +
             "and LOWER(comment.text) like LOWER(CONCAT('%', ?2, '%'))")
     List<Comment> findAllByItemByPattern(Long itemId, String pattern);
+
+    List<Comment> findAllByItemIdInOrderByCreatedDesc(List<Long> itemIds);
 }

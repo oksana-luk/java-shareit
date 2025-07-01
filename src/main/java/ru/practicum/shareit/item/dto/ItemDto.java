@@ -2,7 +2,7 @@ package ru.practicum.shareit.item.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ru.practicum.shareit.booking.model.Booking;
+import ru.practicum.shareit.booking.dto.LastBookingDto;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ public class ItemDto {
     private String name;
     private String description;
     private boolean available;
-    private Booking lastBooking;
-    private Booking nextBooking;
+    private LastBookingDto lastBooking;
+    private LastBookingDto nextBooking;
     private Set<CommentDto> comments;
 }

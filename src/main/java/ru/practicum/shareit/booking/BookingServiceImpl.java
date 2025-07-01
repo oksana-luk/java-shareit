@@ -53,6 +53,10 @@ public class BookingServiceImpl implements BookingService {
     public BookingDto approveBooking(Long userId, Long bookingId, boolean approved) {
         Booking booking = getBooking(bookingId);
         validateOwner(booking.getItem().getOwner().getId(), userId);
+        if (booking.getState() != BookingState.WAITING) {
+            throw new ValidationException(String.format("The status of booking should be WAITING. Current status is %s",
+                    booking.getState()));
+        }
         booking.setState(approved ? BookingState.APPROVED : BookingState.REJECTED);
         return BookingMapper.mapToBookingDto(bookingRepository.save(booking));
     }

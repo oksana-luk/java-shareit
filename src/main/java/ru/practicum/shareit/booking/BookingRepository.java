@@ -75,4 +75,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     //next booking
     Optional<Booking> findTop1ByItemIdAndStartTimeAfterAndStateOrderByStartTimeAsc(Long itemId, LocalDateTime timeNow, BookingState state);
 
+    @Query("select booking " +
+            "from Booking as booking " +
+            "where booking.item in ?1 " +
+            "and booking.state = 'APPROVED' " +
+            "order by booking.startTime")
+    List<Booking> findAllBookings(List<Item> items, LocalDateTime timeNow);
+
 }

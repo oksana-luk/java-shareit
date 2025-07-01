@@ -2,10 +2,7 @@ package ru.practicum.shareit.booking;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import ru.practicum.shareit.booking.dto.BookerDto;
-import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.booking.dto.ItemDto;
-import ru.practicum.shareit.booking.dto.NewBookingRequest;
+import ru.practicum.shareit.booking.dto.*;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
@@ -44,5 +41,15 @@ public class BookingMapper {
                     booking.getState(),
                     startTime,
                     endTime);
+    }
+
+    public static LastBookingDto mapToLastBookingDto(Booking booking) {
+        String startTime = booking.getStartTime().format(dateTimeFormatter);
+        String endTime = booking.getEndTime().format(dateTimeFormatter);
+        return new LastBookingDto(
+                booking.getId(),
+                new BookerDto(booking.getUser().getId()),
+                startTime,
+                endTime);
     }
 }
