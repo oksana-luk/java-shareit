@@ -132,10 +132,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private void validatePeriod(LocalDateTime start, LocalDateTime end) {
-// не проходят тесты Postman
-        if (start.isBefore(LocalDateTime.now())) {
-            throw new ValidationException("The start of booking period is not correct");
-        }
+//        не проходят тесты Postman
+//        if (start.isBefore(LocalDateTime.now())) {
+//            throw new ValidationException("The start of booking period is not correct");
+//        }
         if (end.isBefore(LocalDateTime.now())) {
             throw new ValidationException("The end of booking period is not correct");
         }
