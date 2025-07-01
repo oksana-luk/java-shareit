@@ -51,7 +51,7 @@ public class ItemServiceImpl implements ItemService {
         List<Comment> allComments = commentRepository.findAllByItemIdInOrderByCreatedDesc(itemIds);
 
         Map<Long, List<Booking>> itemsBookings = new HashMap<>();
-        for (Booking booking : allBookings){
+        for (Booking booking : allBookings) {
             Long itemId = booking.getItem().getId();
             if (!itemsBookings.containsKey(itemId)) {
                 itemsBookings.put(itemId, new ArrayList<>());
