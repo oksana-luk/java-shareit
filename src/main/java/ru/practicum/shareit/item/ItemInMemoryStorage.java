@@ -15,26 +15,29 @@ public class ItemInMemoryStorage implements ItemStorage {
     @Override
     public Optional<Item> findItemById(long itemId) {
         Item item = items.get(itemId);
-        return Optional.of(new Item(item.getId(), item.getOwner(), item.getName(), item.getDescription(), item.isAvailable()));
+        return Optional.of(new Item(item.getId(), item.getOwner(), item.getName(), item.getDescription(),
+                item.isAvailable(), null, null));
     }
 
     @Override
     public Collection<Item> findAllItemsByUserId(long userId) {
         return items.values().stream()
-                .filter(item -> item.getOwner() == userId)
+                .filter(item -> item.getOwner().getId() == userId)
                 .toList();
     }
 
     @Override
     public Item addItem(Item item) {
         item.setId(getNext());
-        items.put(item.getId(), new Item(item.getId(), item.getOwner(),  item.getName(), item.getDescription(), item.isAvailable()));
+        items.put(item.getId(), new Item(item.getId(), item.getOwner(),  item.getName(), item.getDescription(),
+                            item.isAvailable(), null, null));
         return item;
     }
 
     @Override
     public Item updateItem(Item item) {
-        items.put(item.getId(), new Item(item.getId(), item.getOwner(), item.getName(), item.getDescription(), item.isAvailable()));
+        items.put(item.getId(), new Item(item.getId(), item.getOwner(), item.getName(), item.getDescription(),
+                        item.isAvailable(), null, null));
         return item;
     }
 
