@@ -31,6 +31,13 @@ public class ItemMapper {
         return itemDto;
     }
 
+    public static ItemDtoAnswer mapToItemDtoShort(Item item) {
+        return new ItemDtoAnswer(
+                item.getId(),
+                item.getName(),
+                item.getOwner().getId());
+    }
+
     public static void updateItemFields(Item item, UpdateItemRequest updateItemRequest) {
         if (updateItemRequest.hasName()) {
             item.setName(updateItemRequest.getName());

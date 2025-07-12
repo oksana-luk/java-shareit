@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.booking.dto.*;
 import ru.practicum.shareit.booking.model.Booking;
+import ru.practicum.shareit.item.dto.ItemDtoAnswer;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -36,7 +37,7 @@ public class BookingMapper {
         String endTime = booking.getEndTime().format(dateTimeFormatter);
         return new BookingDto(
                     booking.getId(),
-                    new ItemDto(booking.getItem().getId(), booking.getItem().getName()),
+                    new ItemDtoAnswer(booking.getItem().getId(), booking.getItem().getName(), booking.getItem().getOwner().getId()),
                     new BookerDto(booking.getUser().getId()),
                     booking.getState(),
                     startTime,

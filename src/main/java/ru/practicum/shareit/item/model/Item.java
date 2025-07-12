@@ -1,8 +1,10 @@
 package ru.practicum.shareit.item.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 @Entity
@@ -28,6 +30,11 @@ public class Item {
     private Booking lastBooking;
     @Transient
     private Booking nextBooking;
+
+    @Nullable
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id")
+    private ItemRequest itemRequest;
 
     @Override
     public final boolean equals(Object o) {

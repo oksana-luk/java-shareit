@@ -15,6 +15,8 @@ import ru.practicum.shareit.exceptions.ValidationException;
 import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.request.ItemRequestRepository;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
@@ -31,6 +33,7 @@ public class ItemServiceImpl implements ItemService {
     private final UserRepository userStorage;
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;
+    private final ItemRequestRepository itemRequestRepository;
 
     @Override
     public ItemDto getItemById(long itemId) {
@@ -84,6 +87,12 @@ public class ItemServiceImpl implements ItemService {
         Item item = ItemMapper.mapToItem(newItemRequest);
         User user = validateUserNotFound(userId);
         item.setOwner(user);
+        if (newItemRequest.getRequestId() != null) {
+            ItemRequest itemRequest = itemRequestRepository.findById(newItemRequest.getRequestId())
+                    .orElseThrow(() -> new NotFoundException("Request not found"));
+            item.setItemRequest(itemRequest);
+        }
+
         return ItemMapper.mapToItemDto(itemStorage.save(item), null, null, Set.of());
     }
 
