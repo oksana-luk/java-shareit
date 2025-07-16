@@ -49,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
         User owner = validateUserNotFound(ownerId);
 
         List<Item> items = itemStorage.findAllByOwner(owner);
-        List<Booking> allBookings = bookingRepository.findAllBookings(items, LocalDateTime.now());
+        List<Booking> allBookings = bookingRepository.findAllApprovedBookings(items);
         List<Long> itemIds = items.stream().map(Item::getId).toList();
         List<Comment> allComments = commentRepository.findAllByItemIdInOrderByCreatedDesc(itemIds);
 
@@ -75,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
         if (pattern == null || pattern.isBlank()) {
             return List.of();
         } else {
-            return itemStorage.findItemsByPattern(pattern).stream()
+            return itemStorage.findItemsByPattern(pattern.trim()).stream()
                     .map(item -> ItemMapper.mapToItemDto(item, null, null, Set.of()))
                     .toList();
         }
@@ -84,15 +84,15 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public ItemDto addItem(long userId, NewItemRequest newItemRequest) {
-        Item item = ItemMapper.mapToItem(newItemRequest);
         User user = validateUserNotFound(userId);
+        Item item = ItemMapper.mapToItem(newItemRequest);
         item.setOwner(user);
         if (newItemRequest.getRequestId() != null) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
             ItemRequest itemRequest = itemRequestRepository.findById(newItemRequest.getRequestId())
                     .orElseThrow(() -> new NotFoundException("Request not found"));
             item.setItemRequest(itemRequest);

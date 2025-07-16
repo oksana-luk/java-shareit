@@ -26,9 +26,9 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     @Transactional
-    public ItemRequestDto addRequest(Long userId, NewItemRequest newItemRequest) {
+    public ItemRequestDto addRequest(Long userId, NewItemRequest newItemRequestRequest) {
         User requestor = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-        ItemRequest request = ItemRequestMapper.mapToItemRequest(newItemRequest, requestor);
+        ItemRequest request = ItemRequestMapper.mapToItemRequest(newItemRequestRequest, requestor);
         request = itemRequestRepository.save(request);
         return ItemRequestMapper.mapToItemRequestDto(request, Set.of());
     }

@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
@@ -31,7 +30,6 @@ public class Item {
     @Transient
     private Booking nextBooking;
 
-    //@Nullable
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id", nullable = true)
     private ItemRequest itemRequest;

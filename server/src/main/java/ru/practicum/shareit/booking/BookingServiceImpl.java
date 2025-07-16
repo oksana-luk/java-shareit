@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
         if (!(booking.getUser().getId() == userId || booking.getItem().getOwner().getId() == userId)) {
             throw new UnacceptableValueException(String.format("Current user with %d is not the owner of item and has got no booking of it", userId));
         }
-        return BookingMapper.mapToBookingDto(getBooking(bookingId));
+        return BookingMapper.mapToBookingDto(booking);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class BookingServiceImpl implements BookingService {
             return;
         }
         boolean isOverlap = bookings.stream()
-                .noneMatch(booking -> (startTime.isAfter(booking.getStartTime()) && startTime.isBefore(booking.getEndTime())) ||
+                .anyMatch(booking -> (startTime.isAfter(booking.getStartTime()) && startTime.isBefore(booking.getEndTime())) ||
                             (endTime.isAfter(booking.getStartTime()) && endTime.isBefore(booking.getEndTime())));
         if (isOverlap) {
             throw new UnacceptableValueException("The item is already booked for this period");

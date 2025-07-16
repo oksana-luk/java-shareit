@@ -80,6 +80,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "where booking.item in ?1 " +
             "and booking.state = 'APPROVED' " +
             "order by booking.startTime")
-    List<Booking> findAllBookings(List<Item> items, LocalDateTime timeNow);
+    List<Booking> findAllApprovedBookings(List<Item> items);
 
 }

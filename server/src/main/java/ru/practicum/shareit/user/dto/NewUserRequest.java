@@ -1,13 +1,12 @@
 package ru.practicum.shareit.user.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class NewUserRequest {
-    //@NotBlank(message = "Name should not be empty")
     private String name;
 
-    //@NotNull
-    //@Email(message = "Invalid email format")
     private String email;
 }

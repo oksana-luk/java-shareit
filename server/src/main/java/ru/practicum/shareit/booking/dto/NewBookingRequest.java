@@ -1,10 +1,10 @@
 package ru.practicum.shareit.booking.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NewBookingRequest {
     private Long itemId;
     private String start;

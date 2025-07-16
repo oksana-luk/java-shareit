@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Objects;
@@ -10,7 +9,6 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 public class CommentDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private String authorName;
     private String text;

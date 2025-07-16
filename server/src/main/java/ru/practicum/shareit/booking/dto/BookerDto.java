@@ -1,10 +1,14 @@
 package ru.practicum.shareit.booking.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class BookerDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 }

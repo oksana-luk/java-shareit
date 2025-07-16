@@ -5,3 +5,4 @@ spring.datasource:
     password:
 
 spring.sql.init.mode: always
+shareit-server.url: http://localhost:9090

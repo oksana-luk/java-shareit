@@ -24,12 +24,6 @@ public class GlobalExceptionHandler {
         return Map.of("Not Found", e.getMessage());
     }
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public Map<String, String> handleDuplicateEmailException(DuplicateEmailException e) {
-        return Map.of("Duplicate email", e.getMessage());
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {

@@ -18,11 +18,7 @@ public class UserMapper {
     }
 
     public static UserDto mapToUserDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        return userDto;
+        return UserDto.builder().id(user.getId()).name(user.getName()).email(user.getEmail()).build();
     }
 
     public static void updateUserFields(User user, UpdateUserRequest updateUserRequest) {

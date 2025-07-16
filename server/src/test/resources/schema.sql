@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     state VARCHAR(50) NOT NULL,
     start_time TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     end_time TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    UNIQUE(item_id, user_id),
+    --UNIQUE(item_id, user_id),
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
