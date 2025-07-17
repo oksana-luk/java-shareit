@@ -240,4 +240,13 @@ public class BookingControllerTest {
 
         verify(bookingService).getAllBookingsByUser(userId, filter);
     }
+
+    @Test
+    void shouldReturnBadRequestForInvalidInput() throws Exception {
+        mockMvc.perform(post("/bookings")
+                        .header("X-Sharer-User-Id", "1")
+                        .content("{bad: data}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
 }

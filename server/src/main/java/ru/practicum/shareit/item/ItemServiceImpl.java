@@ -88,17 +88,15 @@ public class ItemServiceImpl implements ItemService {
         Item item = ItemMapper.mapToItem(newItemRequest);
         item.setOwner(user);
         if (newItemRequest.getRequestId() != null) {
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
             ItemRequest itemRequest = itemRequestRepository.findById(newItemRequest.getRequestId())
                     .orElseThrow(() -> new NotFoundException("Request not found"));
+            log.debug("Check request, requestId={}, finded request {}", newItemRequest.getRequestId(), itemRequest);
             item.setItemRequest(itemRequest);
         }
-
-        return ItemMapper.mapToItemDto(itemStorage.save(item), null, null, Set.of());
+        Item newItem = itemStorage.save(item);
+        log.info("Item saved {}", newItem);
+        ItemDto itemDto = ItemMapper.mapToItemDto(newItem, null, null, Set.of());
+        return itemDto;
     }
 
     @Override

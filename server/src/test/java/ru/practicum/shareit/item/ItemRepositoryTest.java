@@ -169,7 +169,7 @@ public class ItemRepositoryTest {
         assertTrue(approvedItem.getId() > 0);
         assertTrue(notApprovedItem.getId() > 0);
 
-        List<Item> items = itemRepository.findAllByItemRequestInAndAvailableTrue(List.of(request));
+        List<Item> items = itemRepository.findAllByItemRequestId(List.of(request.getId()));
 
         assertNotNull(items);
         assertThat(items.size() == 1);

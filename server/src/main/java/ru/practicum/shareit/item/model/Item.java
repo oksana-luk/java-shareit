@@ -1,10 +1,13 @@
 package ru.practicum.shareit.item.model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
+
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -31,15 +34,15 @@ public class Item {
     private Booking nextBooking;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id", nullable = true)
+    @JoinColumn(name = "request_id")
     private ItemRequest itemRequest;
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Item item)) return false;
-
-        return id == item.id;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return Objects.equals(id, item.id);
     }
 
     @Override

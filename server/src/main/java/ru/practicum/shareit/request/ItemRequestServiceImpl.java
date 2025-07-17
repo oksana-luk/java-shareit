@@ -54,6 +54,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     @Override
     public ItemRequestDto getRequest(long userId, long itemRequestId) {
         ItemRequest itemRequest = itemRequestRepository.findById(itemRequestId)
+       // ItemRequest itemRequest = itemRequestRepository.findByIdWithItems(itemRequestId)
                 .orElseThrow(() -> new NotFoundException("Not found"));
         Map<Long, Set<ItemDtoAnswer>> answers = getAnswersByRequests(List.of(itemRequest));
         return ItemRequestMapper.mapToItemRequestDto(itemRequest, answers.get(itemRequest.getId()));
@@ -61,8 +62,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     public Map<Long, Set<ItemDtoAnswer>> getAnswersByRequests(List<ItemRequest> requests) {
         Map<Long, Set<ItemDtoAnswer>> requestsAnswer = new HashMap<>();
-        List<Item> answers = itemRepository.findAllByItemRequestInAndAvailableTrue(requests);
-
+        List<Long> requestsId = requests.stream().map(request -> request.getId()).toList();
+        List<Item> answers = itemRepository.findAllByItemRequestId(requestsId);
 
         for (Item answer : answers) {
             Long requestId = answer.getItemRequest().getId();

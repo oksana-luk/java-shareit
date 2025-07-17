@@ -117,7 +117,7 @@ public class ItemRequestServiceTest {
         when(itemRequestRepositoryMock.findAllByRequestorIdOrderByCreatedDesc(anyLong()))
                 .thenReturn(List.of(request1, request2));
 
-        when(itemRepositoryMock.findAllByItemRequestInAndAvailableTrue(anyList()))
+        when(itemRepositoryMock.findAllByItemRequestId(anyList()))
                 .thenReturn(List.of(item1, item2));
 
         List<ItemRequestDto> findedItemRequestDtos = itemRequestService.getRequestsByRequestor(user.getId());
@@ -150,7 +150,7 @@ public class ItemRequestServiceTest {
         assertThat(actuelAnswer2).usingRecursiveComparison().isEqualTo(answer2);
 
         verify(itemRequestRepositoryMock).findAllByRequestorIdOrderByCreatedDesc(anyLong());
-        verify(itemRepositoryMock).findAllByItemRequestInAndAvailableTrue(anyList());
+        verify(itemRepositoryMock).findAllByItemRequestId(anyList());
     }
 
     @Test
