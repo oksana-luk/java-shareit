@@ -114,6 +114,9 @@ public class ItemRequestServiceTest {
         ItemRequestDto itemRequestDto1 = new ItemRequestDto(requestId1, requestor, description, created, Set.of(answer1));
         ItemRequestDto itemRequestDto2 = new ItemRequestDto(requestId1, requestor, description, created, Set.of(answer2));
 
+        when(userRepositoryMock.findById(anyLong()))
+                .thenReturn(Optional.of(user));
+
         when(itemRequestRepositoryMock.findAllByRequestorIdOrderByCreatedDesc(anyLong()))
                 .thenReturn(List.of(request1, request2));
 
@@ -149,6 +152,7 @@ public class ItemRequestServiceTest {
         assertThat(actuelAnswer1).usingRecursiveComparison().isEqualTo(answer1);
         assertThat(actuelAnswer2).usingRecursiveComparison().isEqualTo(answer2);
 
+        verify(userRepositoryMock).findById(anyLong());
         verify(itemRequestRepositoryMock).findAllByRequestorIdOrderByCreatedDesc(anyLong());
         verify(itemRepositoryMock).findAllByItemRequestId(anyList());
     }
@@ -170,6 +174,9 @@ public class ItemRequestServiceTest {
         ItemRequest request = new ItemRequest(requestId, user, description, createdDate);
         ItemRequestDto itemRequestDto = new ItemRequestDto(requestId, requestor, description, created, Set.of());
 
+        when(userRepositoryMock.findById(anyLong()))
+                .thenReturn(Optional.of(user));
+
         when(itemRequestRepositoryMock.findAllByRequestorIdNotOrderByCreatedDesc(anyLong()))
                 .thenReturn(List.of(request));
 
@@ -181,6 +188,7 @@ public class ItemRequestServiceTest {
 
         assertThat(requestDto).usingRecursiveComparison().isEqualTo(itemRequestDto);
 
+        verify(userRepositoryMock).findById(anyLong());
         verify(itemRequestRepositoryMock).findAllByRequestorIdNotOrderByCreatedDesc(anyLong());
     }
 }

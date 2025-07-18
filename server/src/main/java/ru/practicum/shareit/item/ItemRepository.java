@@ -19,10 +19,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "or UPPER(itm.description) like UPPER(CONCAT('%', ?1, '%')))")
     List<Item> findItemsByPattern(String pattern);
 
-
     @Query("select itm " +
             "from Item as itm " +
-            "where itm.itemRequest.id in :ids " +
-            "and itm.available = true")
+            "where itm.itemRequest.id in :ids")
     List<Item> findAllByItemRequestId(@Param("ids")List<Long> itemRequests);
 }

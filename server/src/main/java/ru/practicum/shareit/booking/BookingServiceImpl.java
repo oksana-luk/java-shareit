@@ -32,7 +32,6 @@ public class BookingServiceImpl implements BookingService {
         Item item = getItem(newBookingRequest.getItemId());
         Booking booking = BookingMapper.mapToBooking(newBookingRequest, item, user);
 
-        validatePeriod(booking.getStartTime(), booking.getEndTime());
         validateItemAvailable(item.isAvailable());
 
         validatePeriodsOverlap(item, booking.getStartTime(), booking.getEndTime());
@@ -129,19 +128,6 @@ public class BookingServiceImpl implements BookingService {
     private Item getItem(Long itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException(String.format("Item with id %d not found", itemId)));
-    }
-
-    private void validatePeriod(LocalDateTime start, LocalDateTime end) {
-//        не проходят тесты Postman
-//        if (start.isBefore(LocalDateTime.now())) {
-//            throw new ValidationException("The start of booking period is not correct");
-//        }
-        if (end.isBefore(LocalDateTime.now())) {
-            throw new ValidationException("The end of booking period is not correct");
-        }
-        if (start.isAfter(end) || start.equals(end)) {
-            throw new ValidationException("The booking period is not correct");
-        }
     }
 
     private void validateItemAvailable(boolean isAvailable) {

@@ -39,6 +39,10 @@ public class BookingController {
 	public ResponseEntity<Object> bookItem(@RequestHeader("X-Sharer-User-Id") long userId,
 			@RequestBody @Valid BookItemRequestDto requestDto) {
 		log.info("Creating booking {}, userId={}", requestDto, userId);
+		if (requestDto.getStart().isAfter(requestDto.getEnd()) || requestDto.getStart().equals(requestDto.getEnd())) {
+			throw new IllegalArgumentException(String.format("The booking period is not correct. Start %s, end %s",
+					requestDto.getStart(), requestDto.getEnd()));
+		}
 		return bookingClient.bookItem(userId, requestDto);
 	}
 

@@ -72,13 +72,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> getItemsByPattern(String pattern) {
-        if (pattern == null || pattern.isBlank()) {
-            return List.of();
-        } else {
-            return itemStorage.findItemsByPattern(pattern.trim()).stream()
-                    .map(item -> ItemMapper.mapToItemDto(item, null, null, Set.of()))
-                    .toList();
-        }
+        return itemStorage.findItemsByPattern(pattern.trim()).stream()
+                .map(item -> ItemMapper.mapToItemDto(item, null, null, Set.of()))
+                .toList();
     }
 
     @Override
@@ -89,14 +85,14 @@ public class ItemServiceImpl implements ItemService {
         item.setOwner(user);
         if (newItemRequest.getRequestId() != null) {
             ItemRequest itemRequest = itemRequestRepository.findById(newItemRequest.getRequestId())
-                    .orElseThrow(() -> new NotFoundException("Request not found"));
+                    .orElseThrow(() -> new NotFoundException(String.format("Request not found, requestId %s",
+                            newItemRequest.getRequestId())));
             log.debug("Check request, requestId={}, finded request {}", newItemRequest.getRequestId(), itemRequest);
             item.setItemRequest(itemRequest);
         }
         Item newItem = itemStorage.save(item);
         log.info("Item saved {}", newItem);
-        ItemDto itemDto = ItemMapper.mapToItemDto(newItem, null, null, Set.of());
-        return itemDto;
+        return ItemMapper.mapToItemDto(newItem, null, null, Set.of());
     }
 
     @Override
