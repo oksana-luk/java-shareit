@@ -1,0 +1,26 @@
+server.port: 9090
+
+spring.jpa:
+    hibernate.ddl-auto: none
+    properties.hibernate.format_sql: true
+
+spring.sql.init.mode: always
+
+logging.level.org.springframework:
+    orm.jpa: INFO
+    transaction: INFO
+    transaction.interceptor: TRACE
+    orm.jpa.JpaTransactionManager: DEBUG
+
+logging.level.org.hibernate:
+  SQL: DEBUG
+  type: TRACE
+  jdbc.bind: TRACE
+
+spring.datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/shareit
+    username: dbuser
+    password: 12345
+
+logging.level.ru.practicum.shareit: DEBUG
